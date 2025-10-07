@@ -16,7 +16,8 @@ def automate_preprocessing(file_path, target_column="Price"):
     X_train, X_test, y_train, y_test = preprocess_data(
         df,
         target_column=target_column,
-        drop_columns=["Timestamp", "Title", "Lokasi"]
+        drop_columns=["Timestamp", "Title", "Lokasi"],
+        save_path="preprocessing/preprocessor_pipeline.joblib"
     )
 
     print("✅ Preprocessing selesai. Dataset siap dilatih 🚀")

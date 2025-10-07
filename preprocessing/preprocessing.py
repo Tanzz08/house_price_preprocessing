@@ -6,7 +6,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
 
-def preprocess_data(data, target_column="Price", drop_columns=None, test_size=0.2, random_state=42):
+def preprocess_data(data, save_path, target_column="Price", drop_columns=None, test_size=0.2, random_state=42):
     """
     Fungsi preprocessing dataset House Price Makassar
     Tahapan:
