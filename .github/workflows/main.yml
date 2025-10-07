@@ -1,0 +1,52 @@
+name: Preprocessing Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  preprocessing:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout repo agar bisa push balik
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          fetch-depth: 0  # penting untuk push balik
+
+      # Setup Python
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      # Install dependencies
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # Jalankan script preprocessing
+      - name: Run preprocessing
+        run: |
+          python preprocessing/automate_Bustanul-Khair.py
+
+      # Commit dan push hasil preprocessing
+      - name: Commit and push processed data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Tambahkan semua file hasil preprocessing
+          git add preprocessing/X_train.csv preprocessing/X_test.csv preprocessing/y_train.csv preprocessing/y_test.csv preprocessing/preprocessor_pipeline.joblib
+
+          # Cek apakah ada perubahan sebelum commit
+          if git diff --cached --quiet; then
+            echo "✅ Tidak ada perubahan untuk di-commit."
+          else
+            git commit -m "Auto-update: hasil preprocessing terbaru 🚀"
+            git push origin main
+          fi
