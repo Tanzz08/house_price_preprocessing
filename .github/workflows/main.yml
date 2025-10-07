@@ -21,7 +21,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: '3.12.7'
 
       # Install dependencies
       - name: Install dependencies
@@ -32,7 +32,7 @@ jobs:
       # Jalankan script preprocessing
       - name: Run preprocessing
         run: |
-          python preprocessing/automate_Bustanul-Khair.py
+          python preprocessing/automate_bustanul-khair.py
 
       # Commit dan push hasil preprocessing
       - name: Commit and push processed data
